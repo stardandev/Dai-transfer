@@ -123,7 +123,7 @@ export default function Transfer() {
               }
               onClick={onSend}
             >
-              {parseFloat(amount) >= formatFloat(balance) || parseFloat(amount) === 0
+              {parseFloat(amount) >= formatFloat(balance) || !amount
                 ? "Input Valid Amount"
                 : isSending
                 ? "Sending..."
