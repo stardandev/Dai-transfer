@@ -41,7 +41,7 @@ const useStyles = makeStyles({
 export default function Transfer() {
   const classes = useStyles();
   const { account, library } = useWeb3React();
-  const [amount, setAmount] = React.useState<string>("0");
+  const [amount, setAmount] = React.useState<number>(0);
   const [isSending, setIsSending] = React.useState<boolean>(false);
   const [txHash, setTxHash] = React.useState<string>("");
   const [recipientAddress, setRecipientAddress] = React.useState<string>("");
@@ -61,7 +61,7 @@ export default function Transfer() {
       library.getSigner()
     );
 
-    let tx = await ERC20Contract.transfer(recipientAddress, parseEther(amount));
+    let tx = await ERC20Contract.transfer(recipientAddress, parseEther(amount.toString()));
     setTxHash(tx.hash);
     setIsSending(true);
     await tx.wait();
@@ -96,7 +96,7 @@ export default function Transfer() {
                 variant="filled"
                 value={amount}
                 type="number"
-                onChange={(e) => setAmount(e.target.value)}
+                onChange={(e) => setAmount(parseFloat(e.target.value))}
               />
               <Typography className={classes.balance}>
                 Balance: {formatFloat(balance).toFixed(4)} DAI
@@ -116,14 +116,14 @@ export default function Transfer() {
               variant="contained"
               className={classes.button}
               disabled={
-                parseFloat(amount) >= formatFloat(balance) ||
-                amount === "0" ||
+                amount >= formatFloat(balance) ||
+                amount === 0.0 ||
                 !recipientAddress ||
                 isSending
               }
               onClick={onSend}
             >
-              {parseFloat(amount) >= formatFloat(balance) || !amount
+              {amount >= formatFloat(balance) || !amount
                 ? "Input Valid Amount"
                 : isSending
                 ? "Sending..."
