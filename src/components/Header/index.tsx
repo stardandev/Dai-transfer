@@ -9,9 +9,16 @@ import { fetcher } from "../../functions";
 import ERC20ABI from "../../abi/ERC20.abi.json";
 
 const useStyles = makeStyles({
+  main: {
+    backgroundColor: "#6655f1!important",
+  },
   button: {
     width: "100%",
     marginTop: "10px !important",
+  },
+  buttonConnect: {
+    color: "#6655f1!important",
+    background: "white!important"
   },
   accountInfo: {
     display: "flex",
@@ -73,13 +80,13 @@ export default function ButtonAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.main}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Advanced Defi
           </Typography>
           {account === undefined ? (
-            <Button variant="contained" size="medium" onClick={onConnectWallet}>
+            <Button variant="contained" size="medium" onClick={onConnectWallet} className={classes.buttonConnect}>
               Connect Wallet
             </Button>
           ) : (

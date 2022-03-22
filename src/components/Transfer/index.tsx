@@ -33,6 +33,8 @@ const useStyles = makeStyles({
   },
   button: {
     marginTop: "20px !important",
+    color: "white!important",
+    background: "#6655f1!important"
   },
 });
 
@@ -93,6 +95,7 @@ export default function Transfer() {
                 label="Enter DAI Amount"
                 variant="filled"
                 value={amount}
+                type="number"
                 onChange={(e) => setAmount(e.target.value)}
               />
               <Typography className={classes.balance}>
@@ -120,7 +123,7 @@ export default function Transfer() {
               }
               onClick={onSend}
             >
-              {parseFloat(amount) >= formatFloat(balance) || amount === "0"
+              {parseFloat(amount) >= formatFloat(balance) || parseFloat(amount) === 0
                 ? "Input Valid Amount"
                 : isSending
                 ? "Sending..."
